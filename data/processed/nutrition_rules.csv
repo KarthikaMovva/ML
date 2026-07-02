@@ -1,0 +1,7 @@
+health_condition,base_calories,protein,carbohydrates,fat,fiber,max_sugar,max_sodium
+Healthy,2200,75,275,70,30,50,2300
+Underweight,2600,90,330,80,30,60,2300
+Diabetes,1800,90,180,55,35,25,1800
+Hypertension,2000,80,240,60,35,40,1500
+Obesity,1700,100,160,45,40,20,1800
+Heart Disease,1900,85,220,50,35,30,1500
