@@ -3,6 +3,16 @@ import pandas as pd
 import joblib
 from predictor import predict_nutrition
 from schemas import PatientRequest
+from recommender import recommend_foods
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app = FastAPI(                                            #First API with swagger UI
     title="AI Nutrition Recommendation API",
@@ -21,7 +31,7 @@ def home():
         "message": "AI Nutrition Recommendation API is running!"
     }
 
-@app.post("/predict")
+@app.post("/predict")                               #This endpoint predicts the target nutrition requirements
 def predict(patient: PatientRequest):
 
     nutrition = predict_nutrition(
@@ -30,3 +40,26 @@ def predict(patient: PatientRequest):
     )
 
     return nutrition
+
+@app.post("/recommend")                      #This end point Return prediction of target nutritional requirements + recommendations of foods based on target requirements together
+def recommend(patient: PatientRequest):
+
+    patient_df = patient.model_dump()
+
+    nutrition = predict_nutrition(
+        model,
+        patient_df
+    )
+
+    recommendations = recommend_foods(
+        patient_df,
+        model,
+        recommendation_df,
+        scaler,
+        top_n=5
+    )
+
+    return {
+        "nutrition_targets": nutrition,
+        "recommendations": recommendations.to_dict(orient="records")
+    }
