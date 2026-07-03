@@ -6,17 +6,17 @@ from schemas import PatientRequest
 from recommender import recommend_foods
 from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI(                                            #First API with swagger UI
+    title="AI Nutrition Recommendation API",
+    version="1.0.0"
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
-
-app = FastAPI(                                            #First API with swagger UI
-    title="AI Nutrition Recommendation API",
-    version="1.0.0"
 )
 
 model = joblib.load("models/nutrition_model.pkl")      #Load the nutrition model
