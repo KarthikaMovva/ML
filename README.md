@@ -1,4 +1,4 @@
-# 🥗 My_Nutritionist
+# 🥗 MyNutritionist 
 
 An AI-powered Nutrition Recommendation System that predicts personalized daily nutritional requirements using Machine Learning and recommends healthy foods based on the predicted nutrition profile, health conditions, dietary preferences, and allergies.
 
